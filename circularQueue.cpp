@@ -20,22 +20,33 @@ template <typename Type> class Queue {
         }
 
         bool push(Type element) {
-            if (tail + 1 >= length) {
+            // 如果是队列，用尾巴。不是队列用count
+            if (count >= length) {
                 return false;
             }
-            tail++;
+            tail = (tail + 1) % length;
+            // tail++;这里要用tail + 1与length取模操作判断位置了。
             data[tail] = element;
+            count++;
             return true;
         }
         void output() {
-            for (int i = head; i < tail; i++)
+            int i = head;
+            do
             {
                 cout << data[i] << " ";
-            }
-            cout << data[tail] << endl;
+                i = (i + 1) % length;
+            } while (i != (tail + 1) % length);
+            
+            cout << endl;
         }
 };
 
 int main() {
+    Queue<int> queue(100);
+    for (int i = 1; i <= 10; i++) {
+        queue.push(i);
+    }
+    queue.output();
     return 0;
 }
