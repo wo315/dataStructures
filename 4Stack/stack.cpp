@@ -30,6 +30,21 @@ template<typename Type> class Stack {
             return true;
         }
 
+        bool pop() {
+            // return top_index < 0; 我觉得这种写法更好。
+            if (top_index < 0) {
+                return false;
+            }
+            top_index--;
+            return true;
+
+        }
+
+        Type top() {
+            assert(top_index >= 0);
+            return elements[top_index];
+        }
+
 };
 
 
@@ -49,6 +64,14 @@ int main() {
             } else {
                 cout << "push failed!" << endl;
             }
+        } else if (opr == 1) {
+            if (stack.pop()) {
+                cout << "pop success!" << endl;
+            } else {
+                cout << "pop failed!" << endl;
+            }
+        } else if (opr == 2) {
+           	cout << stack.top() << endl; 
         }
 
     }
