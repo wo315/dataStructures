@@ -40,6 +40,19 @@ template <typename Type> class Queue {
             
             cout << endl;
         }
+        
+        Type front() {
+            return data[head];
+        }
+
+        void pop() {
+            head = (head + 1) % length;
+            count--;
+        }
+
+        bool empty() {
+            return count == 0;
+        }
 };
 
 int main() {
@@ -47,6 +60,8 @@ int main() {
     for (int i = 1; i <= 10; i++) {
         queue.push(i);
     }
+    queue.output();
+    queue.pop();
     queue.output();
     return 0;
 }
