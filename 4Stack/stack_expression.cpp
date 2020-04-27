@@ -66,10 +66,41 @@ int operate(char theta, int a, int b) {
 }
 
 void calc(Stack<int> &numbers, Stack<char> &operators) {
-
+    int a = numbers.top();
+    numbers.pop();
+    int b = numbers.top();
+    numbers.pop();
+    numbers.push(operate(operators.top(), a, b));
+    operators.pop();
 }
 
 int main() {
+    int n;
+    cin >> n;
+    Stack<int> numbers(n);
+    Stack<char> operators(n);
+    string buffer;
+    cin >> buffer;
+    int i = 0;
+
+    while (i < n) {
+		if (isdigit(buffer[i])) {
+            numbers.push(buffer[i] - '0');
+            i++;
+        } else {
+        	if (operators.empty() || precede(buffer[i], operators.top())) {
+                operators.push(buffer[i]);
+                i++;
+            } else {
+               	calc(numbers, operators); 
+            }   
+        } 
+    }
     
+    while (!operators.empty()) {
+        calc(numbers, operators);
+    }
+
+    cout << numbers.top() << endl;
     return 0;
 }
