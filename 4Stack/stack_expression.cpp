@@ -85,7 +85,7 @@ int main() {
 
     while (i < n) {
 		if (isdigit(buffer[i])) {
-            numbers.push(buffer[i] - '0');
+            numbers.push(buffer[i] - '0'); // return float from character
             i++;
         } else {
         	if (operators.empty() || precede(buffer[i], operators.top())) {
