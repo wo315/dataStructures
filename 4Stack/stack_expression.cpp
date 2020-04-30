@@ -52,23 +52,41 @@ template <typename Type> class Stack {
 bool precede(char a, char b) {
     if (a == '*' && b == '+') {
         return true;
+    } else if (a == '*' && b == '-') {
+        return true;
+    } else if (a == '/' && b == '+') {
+        return true;
+    } else if (a == '/' && b == '-') {
+        return true;
     } else {
         return false;
     }
+    /* 
+    bool precede( char a, char b ) {
+    if ( (a == '*' || a == '/') && (b == '+' || b == '-') )
+        return true;
+    else
+        return false;
+}
+    */
 }
 
-int operate(char theta, int a, int b) {
-    if (theta == '+') {
-        return a + b;
+float operate(char theta, float a, float b) {
+	if (theta == '*') {
+        return b * a;
+    } else if (theta == '+') {
+        return b + a;
+    } else if (theta == '/') {
+        return b / a;
     } else {
-        return a * b;
+        return b - a;
     }
 }
 
-void calc(Stack<int> &numbers, Stack<char> &operators) {
-    int a = numbers.top();
+void calc(Stack<float> &numbers, Stack<char> &operators) {
+    float a = numbers.top();
     numbers.pop();
-    int b = numbers.top();
+    float b = numbers.top();
     numbers.pop();
     numbers.push(operate(operators.top(), a, b));
     operators.pop();
@@ -77,7 +95,7 @@ void calc(Stack<int> &numbers, Stack<char> &operators) {
 int main() {
     int n;
     cin >> n;
-    Stack<int> numbers(n);
+    Stack<float> numbers(n);
     Stack<char> operators(n);
     string buffer;
     cin >> buffer;
@@ -94,13 +112,15 @@ int main() {
             } else {
                	calc(numbers, operators); 
             }   
-        } 
-    }
-    
-    while (!operators.empty()) {
-        calc(numbers, operators);
+        }
     }
 
-    cout << numbers.top() << endl;
+    while (!operators.empty()) {
+        cout << numbers.top() << endl;
+        calc(numbers, operators);
+        cout << numbers.top() << endl;
+    }
+
+    //cout << numbers.top() << endl;
     return 0;
 }
