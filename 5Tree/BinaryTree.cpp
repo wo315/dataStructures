@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 class Node {
     public:
@@ -20,6 +21,36 @@ class Node {
                 delete rchild;
             }
         }
+
+        void preorder() {
+            cout << data << " ";
+            if (lchild) {
+                lchild->preorder();
+            }
+            if (rchild) {
+                rchild->preorder();
+            }
+        }
+
+        void inorder() {
+            if (lchild) {
+                lchild->inorder();
+            }
+            cout << data << " ";
+            if (rchild) {
+                rchild->inorder();
+            }
+        }
+
+        void postorder() {
+            if (lchild) {
+                lchild->postorder();
+            }
+            if (rchild) {
+                rchild->postorder();
+            }
+            cout << data << " ";
+        }
 };
 
 class BinaryTree {
@@ -32,6 +63,18 @@ class BinaryTree {
 
         ~BinaryTree() {
             delete root;
+        }
+
+        void preorder() {
+            root->preorder();
+        }
+
+        void inorder() {
+            root->inorder();
+        }
+
+        void postorder() {
+            root->postorder();
         }
 
         void build_demo(){
@@ -47,5 +90,11 @@ class BinaryTree {
 int main() {
     BinaryTree binaryTree;
     binaryTree.build_demo();
+    binaryTree.preorder();
+    cout << endl;
+    binaryTree.inorder();
+    cout << endl;
+    binaryTree.postorder();
+    cout << endl;
     return 0;
 }
