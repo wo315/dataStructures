@@ -11,18 +11,41 @@ class Node {
             lchild = NULL;
             rchild = NULL;
         }
+
+        ~Node() {
+            if (lchild) {
+                delete lchild;
+            }
+            if (rchild) {
+                delete rchild;
+            }
+        }
 };
 
 class BinaryTree {
     private:
-        Node* tree;
+        Node* root;
     public:
         BinaryTree() {
-            tree = NULL;
+            root = NULL;
+        }
+
+        ~BinaryTree() {
+            delete root;
+        }
+
+        void build_demo(){
+            root = new Node(1);
+            root->lchild = new Node(2);
+            root->rchild = new Node(3);
+            root->lchild->lchild = new Node(4);
+            root->lchild->rchild = new Node(5);
+            root->rchild->rchild = new Node(6);
         }
 };
 
 int main() {
     BinaryTree binaryTree;
+    binaryTree.build_demo();
     return 0;
 }
